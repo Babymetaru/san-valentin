@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonight's the Night</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blood-red: #8a0303;
+            --bright-blood: #d32f2f;
+            --dark-bg: #121212;
+            --sterile-white: #e6e6e6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Fondo oscuro */
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, var(--dark-bg) 100%),
+                url('https://www.transparenttextures.com/patterns/criss-cross.png'); /* Textura sutil */
+            font-family: 'Roboto Mono', monospace;
+            overflow: hidden;
+            color: var(--sterile-white);
+        }
+
+        /* Efecto de salpicadura de sangre en las esquinas */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://cdn.pixabay.com/photo/2013/07/12/14/14/blood-148068_1280.png');
+            background-size: cover;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            text-align: center;
+            /* 230, 230, 230 */
+            background: rgba(230, 230, 230, 0.95);
+            padding: 40px;
+            border-radius: 4px;
+            /* 138, 3, 3 */
+            border: 3px solid var(--blood-red);
+            box-shadow: 0 0 30px rgba(138, 3, 3, 0.6);
+            max-width: 400px;
+            width: 90%;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Fonts customs (ver el catalogo a ver kionda) */
+        h1 {
+            font-family: 'Special Elite', cursive;
+            color: var(--blood-red);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 250px;
+            border: 4px solid var(--dark-bg);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+            /* Filtro rojo */
+            filter: contrast(110%) sepia(20%) hue-rotate(-10deg);
+        }
+
+        .intro-text {
+            color: var(--dark-bg);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            
+        }
+
+        button {
+            padding: 14px 30px;
+            font-size: 1.2rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #yesBtn {
+            background-color: var(--blood-red);
+            color: var(--sterile-white);
+            box-shadow: 0 4px 15px rgba(138, 3, 3, 0.4);
+            border: 2px solid var(--blood-red);
+        }
+        
+        #yesBtn:hover {
+            background-color: var(--bright-blood);
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: var(--dark-bg);
+            color: var(--sterile-white);
+            border: 2px solid #555;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        /* Esto moverlo más abajo  */
+        #noBtn.moving {
+            opacity: 0.7;
+            background-color: #2a2a2a;
+            color: #777;
+        }
+
+        /* Mensaje de éxito */
+        #success-message {
+            display: none;
+        }
+
+        #success-message h2 {
+            font-family: 'Special Elite', cursive;
+            color: var(--blood-red);
+            font-size: 2.2rem;
+        }
+        
+        #success-message p {
+            color: var(--dark-bg);
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        /* Creamos las gotas usando pseudo-elementos */
+.bloody-text::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 60%; 
+    left: 0;
+    width: 100%;
+    height: 30px;
+    /* Creamos gotas rojas usando sombras repetidas */
+    background: transparent;
+    box-shadow: 
+        20px 20px 0 var(--blood-red),
+        60px 35px 0 var(--blood-red),
+        110px 25px 0 var(--blood-red),
+        160px 15px 0 var(--blood-red),
+        210px 30px 0 var(--blood-red),
+        260px 20px 0 var(--blood-red);
+    /* Las hacemos redondas y alargadas */
+    border-radius: 50%;
+    filter: drop-shadow(0px 2px 0px rgba(0,0,0,0.3));
+    animation: drip 3s infinite ease-in-out alternate;
+    }
+
+    .blood-stain::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px; right: -30px; bottom: -30px;
+    z-index: -1;
+    /* Creamos círculos rojos difuminados para simular manchas */
+    background-image: 
+        radial-gradient(circle at 10% 20%, var(--blood-red) 0px, transparent 25px),
+        radial-gradient(circle at 90% 10%, var(--blood-red) 0px, transparent 35px),
+        radial-gradient(circle at 85% 90%, var(--blood-red) 0px, transparent 20px),
+        radial-gradient(circle at 5% 80%, #600000 0px, transparent 30px);
+    opacity: 0.7;
+    filter: blur(1px); /* Difumina los bordes para que parezca líquido */
+    pointer-events: none;
+}
+
+
+
+        
+    </style>
+</head>
+<body>
+
+    <div class="container blood-stain" id="main-card">
+        <div id="question-content">
+            <h1>Tonight's the night.</h1>
+            <p class="intro-text">Tengo un espacio vacío en mi colección...</p>
+            
+            <div class="gif-container">
+                <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGNrYjVxeXc2d2EwdWdhemVseWIxeXQzaXNmd3Zhb3dzcmdmZXprdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o1Q5evkBFQKUOBCIpr/giphy.gif" alt="Dexter Morgan UwU">
+            </div>
+            
+            <h1>¿Querés ser mi San Valentín?</h1>
+
+            <div class="buttons">
+                <button id="yesBtn">SÍ</button>
+                <button id="noBtn">NO</button>
+            </div>
+        </div>
+
+        <div id="success-message">
+            <h2>SANGRE DE MI SANGRE.</h2>
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlyZHdwYnRoNXR3Nzg1czA5cGZ4M3h2NjdlbTZ0aWduazk4aXAxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HAi4i45T0pAdGERov4/giphy.gif" width="250" style="border-color: var(--blood-red);">
+            <p>Te amo mi Solcito 🐢🤍<br>Nos vemos el 14.</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionContent = document.getElementById('question-content');
+        const successMessage = document.getElementById('success-message');
+
+        // Mover el no :v
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton); // Para móviles
+
+        function moveButton(e) {
+            if(e.type === 'touchstart') e.preventDefault();
+
+            // Añade clase para que se vea más oscuro al moverse
+            noBtn.classList.add('moving');
+            
+            // Mantener el botón dentro de la pantalla visible
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
+
+            const x = Math.max(10, Math.random() * maxWidth);
+            const y = Math.max(10, Math.random() * maxHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            noBtn.style.zIndex = '10'; // Asegura que quede sobre el fondo
+        }
+
+        // Testear esto
+        yesBtn.addEventListener('click', () => {
+            questionContent.style.display = 'none';
+            successMessage.style.display = 'block';
+            // Vibración 
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+            }
+        });
+    </script>
+</body>
+</html>
