@@ -30,7 +30,6 @@
             color: var(--sterile-white);
         }
 
-        /* Efecto de salpicadura de sangre en las esquinas */
         body::before {
             content: "";
             position: absolute;
@@ -159,7 +158,7 @@
     left: 0;
     width: 100%;
     height: 30px;
-    /* Creamos gotas rojas usando sombras repetidas */
+    /* Gotas en css */
     background: transparent;
     box-shadow: 
         20px 20px 0 var(--blood-red),
@@ -168,7 +167,7 @@
         160px 15px 0 var(--blood-red),
         210px 30px 0 var(--blood-red),
         260px 20px 0 var(--blood-red);
-    /* Las hacemos redondas y alargadas */
+    
     border-radius: 50%;
     filter: drop-shadow(0px 2px 0px rgba(0,0,0,0.3));
     animation: drip 3s infinite ease-in-out alternate;
@@ -179,7 +178,7 @@
     position: absolute;
     top: -30px; left: -30px; right: -30px; bottom: -30px;
     z-index: -1;
-    /* Creamos círculos rojos difuminados para simular manchas */
+     
     background-image: 
         radial-gradient(circle at 10% 20%, var(--blood-red) 0px, transparent 25px),
         radial-gradient(circle at 90% 10%, var(--blood-red) 0px, transparent 35px),
@@ -227,14 +226,13 @@
         const questionContent = document.getElementById('question-content');
         const successMessage = document.getElementById('success-message');
 
-        // Mover el no :v
+        // Mueve el no :v
         noBtn.addEventListener('mouseover', moveButton);
         noBtn.addEventListener('touchstart', moveButton); // Para móviles
 
         function moveButton(e) {
             if(e.type === 'touchstart') e.preventDefault();
 
-            // Añade clase para que se vea más oscuro al moverse
             noBtn.classList.add('moving');
             
             // Mantener el botón dentro de la pantalla visible
@@ -262,3 +260,4 @@
     </script>
 </body>
 </html>
+
